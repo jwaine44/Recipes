@@ -30,32 +30,6 @@ class User:
         query = "INSERT into users(first_name, last_name, email, password) VALUES(%(first_name)s, %(last_name)s, %(email)s, %(password)s);"
         return connectToMySQL(database).query_db(query, data)
 
-    @classmethod
-    def get_user_with_recipes(cls, data):
-        query = "SELECT * FROM users LEFT JOIN recipes_users ON recipes_users.user_id = users.id LEFT JOIN recipes ON recipes_users.recipe_id = recipes.id WHERE users.id = %(id)s;"
-        results = connectToMySQL(database).query_db(query, data)
-        # results will be a list of recipe objects with the user attached to each row. 
-        if len(results) > 0:
-            current_user = cls(results[0])
-            list_recipes = []
-            for row_from_db in results:
-            # Now we parse the user data to make instances of users and add them into our list.
-                recipe_data = {
-                    "id": row_from_db["recipes.id"],
-                    "name": row_from_db["name"],
-                    "description": row_from_db["description"],
-                    "under_30_minutes": row_from_db["under_30_minutes"],
-                    "instructions": row_from_db["instructions"],
-                    "date_made": row_from_db["date_made"],
-                    "created_at": row_from_db["recipes.created_at"],
-                    "updated_at": row_from_db["recipes.updated_at"]
-                }
-            recipe = recipe_model.Recipe(recipe_data)
-            list_recipes.append(recipe)
-            current_user = list_recipes
-            return current_user
-        return None
-
     @staticmethod
     def validate_registration(data):
         isValid = True
