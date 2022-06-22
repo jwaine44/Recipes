@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes</title>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous"> -->
+</head>
+<body>
+    <h1>Edit Recipe</h1>
+    <form action="/recipes/update/{{recipe.id}}" method="POST">
+
+        {% for message in get_flashed_messages(category_filter=["error_recipe_name"]): %}
+            {{message}}
+        {% endfor %}
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" value="{{recipe.name}}">
+
+        {% for message in get_flashed_messages(category_filter=["error_recipe_description"]): %}
+            {{message}}
+        {% endfor %}
+        <label for="description">Description:</label>
+        <textarea name="description" id="description">{{recipe.description}}</textarea>
+
+        {% for message in get_flashed_messages(category_filter=["error_recipe_instructions"]): %}
+            {{message}}
+        {% endfor %}
+        <label for="instructions">Instructions:</label>
+        <textarea name="instructions" id="instructions">{{recipe.instructions}}</textarea>
+
+        {% for message in get_flashed_messages(category_filter=["error_recipe_created_at"]): %}
+            {{message}}
+        {% endfor %}
+        <label for="created_at">Date Made On:</label>
+        <input type="date" id="created_at" name="created_at">
+
+        {% for message in get_flashed_messages(category_filter=["error_recipe_under_30_minutes"]): %}
+            {{message}}
+        {% endfor %}
+        <label for="under_30_minutes">Under 30 Minutes?</label>
+        <input type="radio" name="under_30_minutes" value='1' {% if recipe.under_30_minutes == 1 %} checked {% endif %}>Yes
+        <input type="radio" name="under_30_minutes" value='0' {% if recipe.under_30_minutes == 0 %} checked {% endif %}>No
+        <input type="hidden" name="user_id">
+
+        <input type="submit" value="Update">
+    </form>
+    
+    <a href="/dashboard">Dashboard</a>
+    <a href="/logout">Logout</a>
+</body>
+</html>

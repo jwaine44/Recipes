@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes</title>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous"> -->
+</head>
+<body>
+    <h1>Add New Recipe</h1>
+    <form action="/recipes/create" method="POST">
+        {% for message in get_flashed_messages(category_filter=["error_recipe_name"]): %}
+            {{message}}
+        {% endfor %}
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name">
+
+        {% for message in get_flashed_messages(category_filter=["error_recipe_description"]): %}
+            {{message}}
+        {% endfor %}
+        <label for="description">Description:</label>
+        <textarea name="description" id="description"></textarea>
+
+        {% for message in get_flashed_messages(category_filter=["error_recipe_instructions"]): %}
+            {{message}}
+        {% endfor %}
+        <label for="instructions">Instructions:</label>
+        <textarea name="instructions"></textarea>
+
+        {% for message in get_flashed_messages(category_filter=["error_recipe_created_at"]): %}
+            {{message}}
+        {% endfor %}
+        <label for="created_at">Date Made On:</label>
+        <input type="date" name="created_at" id="created_at">
+
+        {% for message in get_flashed_messages(category_filter=["error_recipe_under_30_minutes"]): %}
+            {{message}}
+        {% endfor %}
+        <label for="under_30_minutes">Under 30 Minutes?</label>
+        <input type="radio" name="under_30_minutes" value="1" checked/>Yes
+        <input type="radio" name="under_30_minutes" value="0"/>No
+
+        <input type="submit" value="Create">
+    </form>
+    
+    <a href="/dashboard">Dashboard</a>
+    <a href="/logout">Logout</a>
+</body>
+</html>

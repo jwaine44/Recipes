@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes</title>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous"> -->
+</head>
+<body>
+    <h1>Welcome {{session['first_name']}}!</h1>
+
+    <h1>{{recipe.name}}</h1>
+    <table>
+        <tr>
+            <td>Description:</td>
+            <td>{{recipe.description}}</td>
+        </tr>
+        <tr>
+            <td>Under 30 Minutes:</td>
+            <td>{% if recipe.under_30_minutes == 1 %}
+                    Yes
+                {% else: %}
+                    No
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>Instructions:</td>
+            <td>{{recipe.instructions}}</td>
+        </tr>
+        <tr>
+            <td>Date Made:</td>
+            <td>{{recipe.created_at}}</td>
+        </tr>
+    </table>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/logout">Logout</a>
+</body>
+</html>
